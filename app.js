@@ -1,29 +1,34 @@
 let searchBtn = document.getElementById("search-btn");
-
 let countryInp = document.getElementById("country-inp");
+let result = document.getElementById("result");
 
 searchBtn.addEventListener("click", () => {
-    let country = countryInp.value;;
-    let finalUrl = `https://restcountries.com/v2/name/${country}?fullText=true
-    `
-    console.log(finalUrl);
+    let country = countryInp.value.trim(); // Remove extra spaces
+    if (!country) {
+        result.innerHTML = `<h3>The input field cannot be empty</h3>`;
+        return;
+    }
 
-    fetch(finalUrl).then((res) => res.json()).then((data) => {
-        result.innerHTML = `
-        <img src="${data[0].flags.svg}" class="flag-img"/>
-        <h2>${data[0].name}</h2>
-        <span>Population : ${data[0].population}</span> <br/>
-        <span>Currency : ${data[0].currencies[Object.keys(data[0].currencies)].name}</span> <br/>
-        <span>Languages : ${Object.values(data[0].languages[0].name).toString().split(",").join("")}</span>  <br/>
-        <span>Captial : ${data[0].capital}</span>
-        `
-    }).catch(() => {
-        if (country.length == 0) {
-            result.innerHTML = `<h3>The input field cannot be empty</h3>`
-        }
-        else {
-            result.innerHTML = `<h3>Please enter a valid country</h3>`
-        }
-    })
+    let finalUrl = `https://restcountries.com/v2/name/${country}?fullText=true`;
 
-})
+    fetch(finalUrl)
+        .then((res) => res.json())
+        .then((data) => {
+            if (data.status === 404) {
+                result.innerHTML = `<h3>Please enter a valid country</h3>`;
+                return;
+            }
+
+            let countryData = data[0];
+            result.innerHTML = `
+                <img src="${countryData.flags.svg}" class="flag-img" alt="Flag of ${countryData.name}" />
+                <h2>${countryData.name}</h2>
+                <span>Population: ${countryData.population.toLocaleString()}</span><br/>
+                <span>Currency: ${countryData.currencies[0].name} (${countryData.currencies[0].symbol})</span><br/>
+                <span>Capital: ${countryData.capital}</span>
+            `;
+        })
+        .catch(() => {
+            result.innerHTML = `<h3>Something went wrong. Please try again.</h3>`;
+        });
+});

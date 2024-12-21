@@ -1,72 +1,97 @@
 * {
-  padding: 0%;
+  padding: 0;
   margin: 0;
   box-sizing: border-box;
 }
 
 body {
-  background-color: rgb(189, 189, 189);
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+  color: #333;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .container {
-  background-color: azure;
-  width: 80vw;
-  max-width: 37.5em;
-  padding: 3rem 2rem;
-  position: absolute;
-  transform: translate(-50%, -50%);
-  top: 50%;
-  left: 50%;
-  border-radius: 0.5rem;
-  box-shadow: 1rem 2rem 0px 1px rgba(0, 0, 0, 0.8);
+  background-color: #ffffff;
+  width: 90%;
+  max-width: 600px;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
 }
 
 .search-wrapper {
-  display: grid;
-  grid-template-columns: 9fr 3fr;
-  gap: 1.5rem;
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.search-wrapper input {
+  flex: 1;
+  font-size: 1rem;
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+}
+
+.search-wrapper input:focus {
+  border-color: #007bff;
 }
 
 .search-wrapper button {
   font-size: 1rem;
-  background-color: blue;
-  color: white;
-  padding: 0.8rem 0;
+  background-color: #007bff;
+  color: #fff;
+  padding: 0.75rem 1rem;
   border: none;
-  border-radius: 1.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
-.search-wrapper input {
-  font-size: 1rem;
-  color: #222a43;
-  background-color: azure;
-  border: none;
-  border-bottom: 2px solid blue;
-  padding: 0 0.6em;
-  outline: none;
+
+.search-wrapper button:hover {
+  background-color: #0056b3;
 }
 
 #result {
   margin-top: 1.5rem;
-  text-align: center;
+  line-height: 1.8;
 }
-
-
 
 .flag-img {
   display: block;
-  width: 45%;
-  min-width: 7.5rem;
-  margin: auto;
+  width: 50%;
+  margin: 0 auto 1rem;
+  border-radius: 8px;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 h2 {
-  text-align: center;
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
 }
 
 h3 {
-  color: red;
-  text-align: center;
+  color: #d9534f;
+  font-size: 1.2rem;
 }
 
+span {
+  font-size: 1rem;
+  color: #555;
+}
 
+@media (max-width: 768px) {
+  .search-wrapper {
+    flex-direction: column;
+  }
 
+  .search-wrapper button {
+    width: 100%;
+  }
+}
